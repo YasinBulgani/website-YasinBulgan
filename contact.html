@@ -1,0 +1,49 @@
+<section class="py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-4xl font-bold text-gray-900 text-center mb-12" data-lang="tr">İletişim</h2>
+        <h2 class="text-4xl font-bold text-gray-900 text-center mb-12 hidden" data-lang="en">Contact</h2>
+        <div class="max-w-lg mx-auto">
+            <div class="space-y-6">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-600" data-lang="tr">Ad Soyad</label>
+                    <label for="name" class="block text-sm font-medium text-gray-600 hidden" data-lang="en">Full Name</label>
+                    <input type="text" id="name" class="mt-1 block w-full p-4 card rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-900" required aria-required="true">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-600" data-lang="tr">E-posta</label>
+                    <label for="email" class="block text-sm font-medium text-gray-600 hidden" data-lang="en">Email</label>
+                    <input type="email" id="email" class="mt-1 block w-full p-4 card rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-900" required aria-required="true">
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-600" data-lang="tr">Mesaj</label>
+                    <label for="message" class="block text-sm font-medium text-gray-600 hidden" data-lang="en">Message</label>
+                    <textarea id="message" rows="4" class="mt-1 block w-full p-4 card rounded-md focus:ring-blue-500 focus:border-blue-500 text-gray-900" required aria-required="true"></textarea>
+                </div>
+                <button id="contact-submit" class="w-full bg-blue-600 text-white px-8 py-4 rounded-md font-semibold hover:bg-blue-700 transition-colors" data-lang="tr">Gönder</button>
+                <button id="contact-submit" class="w-full bg-blue-600 text-white px-8 py-4 rounded-md font-semibold hover:bg-blue-700 transition-colors hidden" data-lang="en">Send</button>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    // Add form validation
+    const contactSubmit = document.getElementById('contact-submit');
+    contactSubmit.addEventListener('click', () => {
+        const name = DOMPurify.sanitize(document.getElementById('name').value.trim());
+        const email = DOMPurify.sanitize(document.getElementById('email').value.trim());
+        const message = DOMPurify.sanitize(document.getElementById('message').value.trim());
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!name || !email || !message) {
+            alert(currentLang === 'tr' ? 'Lütfen tüm alanları doldurun.' : 'Please fill in all fields.');
+            return;
+        }
+        if (!emailRegex.test(email)) {
+            alert(currentLang === 'tr' ? 'Lütfen geçerli bir e-posta adresi girin.' : 'Please enter a valid email address.');
+            return;
+        }
+        alert(currentLang === 'tr' ? 'Mesaj gönderildi!' : 'Message sent!');
+        document.getElementById('name').value = '';
+        document.getElementById('email').value = '';
+        document.getElementById('message').value = '';
+    });
+</script>
